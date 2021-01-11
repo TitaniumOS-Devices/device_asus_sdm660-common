@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2018-2020 The Project-Xtended
+# Copyright (C) 2018-2020 TitaniumOS
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -11,9 +11,9 @@ set -e
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "${MY_DIR}" ]]; then MY_DIR="${PWD}"; fi
 
-XTENDED_ROOT="${MY_DIR}"/../../..
+TITANIUM_ROOT="${MY_DIR}"/../../..
 
-HELPER="${XTENDED_ROOT}/vendor/xtended/build/tools/extract_utils.sh"
+HELPER="${TITANIUM_ROOT}/vendor/titanium/build/tools/extract_utils.sh"
 if [ ! -f "${HELPER}" ]; then
     echo "Unable to find helper script at ${HELPER}"
     exit 1
@@ -65,7 +65,7 @@ function blob_fixup() {
 }
 
 # Initialize the helper for common device
-setup_vendor "${DEVICE_COMMON}" "${VENDOR}" "${XTENDED_ROOT}" true "${CLEAN_VENDOR}"
+setup_vendor "${DEVICE_COMMON}" "${VENDOR}" "${TITANIUM_ROOT}" true "${CLEAN_VENDOR}"
 
 extract "${MY_DIR}/proprietary-files.txt" "${SRC}" \
         "${KANG}" --section "${SECTION}"
@@ -73,7 +73,7 @@ extract "${MY_DIR}/proprietary-files.txt" "${SRC}" \
 if [ -s "${MY_DIR}/../${DEVICE}/proprietary-files.txt" ]; then
     # Reinitialize the helper for device
     source "${MY_DIR}/../${DEVICE}/extract-files.sh"
-    setup_vendor "${DEVICE}" "${VENDOR}" "${XTENDED_ROOT}" false "${CLEAN_VENDOR}"
+    setup_vendor "${DEVICE}" "${VENDOR}" "${TITANIUM_ROOT}" false "${CLEAN_VENDOR}"
 
     extract "${MY_DIR}/../${DEVICE}/proprietary-files.txt" "${SRC}" \
             "${KANG}" --section "${SECTION}"
